@@ -13,4 +13,8 @@ public class King extends Piece {
 			return "img/black_king.png";
 		}
 	}
+	
+	public boolean action(int desX, int desY) {
+		return false;
+	}
 }

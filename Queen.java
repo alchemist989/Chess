@@ -12,4 +12,8 @@ public class Queen extends Piece {
 			return "img/black_queen.png";
 		}
 	}
+	
+	public boolean action(int desX, int desY) {
+		return false;
+	}
 }

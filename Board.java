@@ -1,9 +1,10 @@
 public class Board {
 	
 	static Piece[][] myBoard;
-	
-	
-	
+	static boolean gameEnd;
+	static boolean colorSelectPiece;
+	static Piece choosen;
+	static int turn;
 	
 	public Board() {
 		myBoard = new Piece[8][8];
@@ -47,6 +48,11 @@ public class Board {
 		}
 	}
 	
+	
+	private void endTurn() {
+		turn = 1-turn;
+	}
+	
 	public static void drawBoard() {
 		for (int x = 0; x < 8; x++) {
 			for (int y = 0; y < 8; y++) {
@@ -64,9 +70,45 @@ public class Board {
 			}
 		}
 	}
+
 	public static void main(String[] args) {
 		Board b = new Board();
 		StdDrawPlus.setScale(0, 8);
-		drawBoard();			
+		drawBoard();
+		while (!gameEnd) {
+			int x, y;
+			if (StdDrawPlus.mousePressed()) {
+				x = (int) StdDrawPlus.mouseX();
+				y = (int) StdDrawPlus.mouseY();
+				//null case
+				if (myBoard[x][y] == null && choosen == null) {
+					continue;
+				} else if (myBoard[x][y] == null && choosen != null) {
+					//Move to empty space
+				}
+				Piece p = myBoard[x][y];
+				if (p.side == turn && choosen == null) {
+					choosen = p;
+					colorSelectPiece = true;
+				} else if (p.side == turn && choosen != null) {
+					choosen = p;
+					colorSelectPiece = true;
+				} else if (p.side != turn && choosen != null) {
+					//Move to Capture
+				}
+				//Color the selected Piece
+				if (colorSelectPiece) {
+					StdDrawPlus.setPenColor(StdDrawPlus.MAGENTA);
+					StdDrawPlus.filledSquare(x + .5, y + .5, .5);
+				} else {
+					drawBoard();
+				}
+			}
+			if (StdDrawPlus.isSpacePressed()) {
+				b.endTurn();
+				drawBoard();
+			}
+		}
 	}
 }
+	

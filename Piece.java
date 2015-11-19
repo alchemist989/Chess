@@ -12,6 +12,10 @@ public abstract class Piece {
 		this.posY = posY;
 	}
 	
+	
+	
 	public abstract String picture();
+	//true if the piece is clicked, false if the piece is move
+	public abstract boolean action(int desX, int desY);
 }
 

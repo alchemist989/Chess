@@ -12,4 +12,8 @@ public class Rook extends Piece {
 			return "img/black_rook.png";
 		}
 	}
+	
+	public boolean action(int desX, int desY) {
+		return false;
+	}
 }

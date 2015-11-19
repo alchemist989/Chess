@@ -12,4 +12,7 @@ public class Knight extends Piece {
 			return "img/black_knight.png";
 		}
 	}
+	public boolean action(int desX, int desY) {
+		return false;
+	}
 }

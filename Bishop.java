@@ -14,4 +14,8 @@ public class Bishop extends Piece {
 			return "img/black_bishop.png";
 		}
 	}
+	
+	public boolean action(int desX, int desY) {
+		return false;
+	}
 }

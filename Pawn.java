@@ -12,4 +12,15 @@ public class Pawn extends Piece {
 			return "img/black_pawn.png";
 		}
 	}
+	
+	public boolean action(int desX, int desY) {
+		//clicking the piece
+		if (!choosen) {
+			choosen = true;
+			return true;
+		//moving the piece (requires being first clicked)
+		} else {
+			return false;
+		}
+	}
 }
