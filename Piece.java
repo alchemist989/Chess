@@ -11,5 +11,7 @@ public abstract class Piece {
 		this.posX = posX;
 		this.posY = posY;
 	}
+	
+	public abstract String picture();
 }
 

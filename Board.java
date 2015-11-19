@@ -1,6 +1,6 @@
 public class Board {
 	
-	Piece[][] myBoard;
+	static Piece[][] myBoard;
 	
 	
 	
@@ -16,6 +16,8 @@ public class Board {
 				//(WHITE) Creating Board Pieces
 				} else if (y == 1) {
 					myBoard[x][y] = new Pawn(0, x, y);
+				} else if (y == 6) {
+					myBoard[x][y] = new Pawn(1, x, y);
 				} else if (y == 0) {
 					if (x == 0 || x == 7) {
 						myBoard[x][y] = new Rook(0, x, y);
@@ -46,11 +48,25 @@ public class Board {
 	}
 	
 	public static void drawBoard() {
-		
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				//Black and White Spaces on Board
+				if ((y + x) % 2 == 0) {
+					StdDrawPlus.setPenColor(StdDrawPlus.DARK_GRAY);
+				} else {
+					StdDrawPlus.setPenColor(StdDrawPlus.WHITE);
+				}
+				StdDrawPlus.filledSquare(x + .5, y + .5, .5);
+				//Draw Pieces in Board
+				if (myBoard[x][y] != null) {
+	  	  			StdDrawPlus.picture(x + .5, y + .5, myBoard[x][y].picture(), 1, 1);
+				}
+			}
+		}
 	}
 	public static void main(String[] args) {
 		Board b = new Board();
 		StdDrawPlus.setScale(0, 8);
-		drawBoard();
+		drawBoard();			
 	}
 }
