@@ -15,14 +15,17 @@ public abstract class Piece {
 	}
 	
 	public boolean checkBounds(int x, int y) {
-		System.out.println(x);
-		System.out.println(y);
 		if (x < 0 || x > 7 || y < 0 || y > 7) {
-			System.out.println("don't go in");
 			return false;
 		}
-		System.out.println("go in");
 		return true;
+	}
+	
+	public void movingCapturing(int desX, int desY, Piece selected) {
+		myBoard[desX][desY] = selected;
+		myBoard[posX][posY] = null;
+		selected.posX = desX;
+		selected.posY = desY;
 	}
 	
 	

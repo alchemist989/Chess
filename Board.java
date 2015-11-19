@@ -5,6 +5,7 @@ public class Board {
 	static boolean colorSelectPiece;
 	static Piece choosen;
 	static int turn;
+	static boolean hasMoved;
 	
 	public Board() {
 		myBoard = new Piece[8][8];
@@ -53,7 +54,14 @@ public class Board {
 	
 	
 	private void endTurn() {
-		turn = 1-turn;
+		if (hasMoved) {
+			turn = 1-turn;
+			hasMoved = false;
+		}
+	}
+	
+	private void checkMate() {
+		
 	}
 	
 	public static void drawBoard() {
@@ -83,28 +91,31 @@ public class Board {
 			if (StdDrawPlus.mousePressed()) {
 				x = (int) StdDrawPlus.mouseX();
 				y = (int) StdDrawPlus.mouseY();
-				
-				//null case
-				if (myBoard[x][y] == null) {
-					if (choosen == null) {
-						continue;
-					} else if (choosen != null) {
+				if (!hasMoved) {
+					//null case
+					drawBoard();
+					if (myBoard[x][y] == null) {
+						if (choosen == null) {
+							continue;
+						} else if (choosen != null) {
+							choosen.move(x, y);
+							hasMoved = true;
+						}
+					//Pick player's piece when nothing has been selected
+					} else if (choosen == null && myBoard[x][y].side == turn) {
+						choosen = myBoard[x][y];
+						colorSelectPiece = true;
+						
+					//Pick player's piece when another one of the player's pieces have been selected
+					} else if (choosen != null && myBoard[x][y].side == turn) {
+						choosen = myBoard[x][y];
+						colorSelectPiece = true;
+						
+					//Move to Capture
+					} else if (myBoard[x][y].side != turn && choosen != null && choosen.side == turn) {
 						choosen.move(x, y);
+						hasMoved = true;
 					}
-				//Pick player's piece when nothing has been selected
-				} else if (choosen == null && myBoard[x][y].side == turn) {
-					choosen = myBoard[x][y];
-					colorSelectPiece = true;
-					
-				//Pick player's piece when another one of the player's pieces have been selected
-				} else if (choosen != null && myBoard[x][y].side == turn) {
-					choosen = myBoard[x][y];
-					colorSelectPiece = true;
-					
-				//Move to Capture
-				} else if (myBoard[x][y].side != turn && choosen != null) {
-					choosen.move(x, y);
-				}
 				
 				//Color the selected Piece
 //				if (colorSelectPiece) {
@@ -113,9 +124,10 @@ public class Board {
 //					StdDrawPlus.show(10);
 //					drawBoard();
 //				} else {
-				drawBoard();
+					drawBoard();
+				}
 			}
-		
+			StdDrawPlus.show(10);
 			if (StdDrawPlus.isSpacePressed()) {
 				b.endTurn();
 				drawBoard();

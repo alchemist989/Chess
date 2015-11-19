@@ -13,6 +13,12 @@ public class Knight extends Piece {
 		}
 	}
 	public void move(int desX, int desY) {
-		
+		for (int x = posX - 2; x < posX+3;x++) {
+			for (int y = posY - 2; y < posY+3; y++) {
+				if (checkBounds(x, y)) {
+					
+				}
+			}
+		}
 	}
 }

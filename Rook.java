@@ -14,6 +14,24 @@ public class Rook extends Piece {
 	}
 	
 	public void move(int desX, int desY) {
-		
+		for (int i = 0; i < 8; i++) {
+			
+			if (checkBounds(desX, i)) {
+				if (posX == desX && i == desY) {
+					myBoard[desX][desY] = myBoard[posX][posY];
+					myBoard[posX][posY] = null;
+					posX = desX;
+					posY = desY;
+				}
+			}
+			if (checkBounds(i, desY)) {
+				if (posY == desY && i == desX) {
+					myBoard[desX][desY] = myBoard[posX][posY];
+					myBoard[posX][posY] = null;
+					posX = desX;
+					posY = desY;
+				}
+			}
+		}
 	}
 }
