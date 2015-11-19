@@ -1,8 +1,8 @@
 public class King extends Piece {
 	
 	
-	public King(int side, int posX, int posY) {
-		creatingPiece("King", side, posX, posY);
+	public King(int side, int posX, int posY, Piece[][] b) {
+		creatingPiece("King", side, posX, posY, b);
 	}
 	
 	
@@ -14,7 +14,7 @@ public class King extends Piece {
 		}
 	}
 	
-	public boolean action(int desX, int desY) {
-		return false;
+	public void move(int desX, int desY) {
+		
 	}
 }

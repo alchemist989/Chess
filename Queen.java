@@ -1,8 +1,8 @@
 public class Queen extends Piece {
 
 	
-	public Queen(int side, int posX, int posY) {
-		creatingPiece("Queen", side, posX, posY);
+	public Queen(int side, int posX, int posY, Piece[][] b) {
+		creatingPiece("Queen", side, posX, posY, b);
 	}
 	
 	public String picture() {
@@ -13,7 +13,7 @@ public class Queen extends Piece {
 		}
 	}
 	
-	public boolean action(int desX, int desY) {
-		return false;
+	public void move(int desX, int desY) {
+		
 	}
 }

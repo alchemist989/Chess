@@ -1,8 +1,8 @@
 
 public class Knight extends Piece {
 	
-	public Knight(int side, int posX, int posY) {
-		creatingPiece("Knight", side, posX, posY);
+	public Knight(int side, int posX, int posY, Piece[][] b) {
+		creatingPiece("Knight", side, posX, posY, b);
 	}
 	
 	public String picture() {
@@ -12,7 +12,7 @@ public class Knight extends Piece {
 			return "img/black_knight.png";
 		}
 	}
-	public boolean action(int desX, int desY) {
-		return false;
+	public void move(int desX, int desY) {
+		
 	}
 }

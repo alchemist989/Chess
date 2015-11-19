@@ -1,8 +1,8 @@
 
 public class Rook extends Piece {
 	
-	public Rook(int side, int posX, int posY) {
-		creatingPiece("Rook", side, posX, posY);
+	public Rook(int side, int posX, int posY, Piece[][] b) {
+		creatingPiece("Rook", side, posX, posY, b);
 	}
 	
 	public String picture() {
@@ -13,7 +13,7 @@ public class Rook extends Piece {
 		}
 	}
 	
-	public boolean action(int desX, int desY) {
-		return false;
+	public void move(int desX, int desY) {
+		
 	}
 }

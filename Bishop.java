@@ -2,8 +2,8 @@
 public class Bishop extends Piece {
 	
 	
-	public Bishop(int side, int posX, int posY) {
-		creatingPiece("Bishop", side, posX, posY);
+	public Bishop(int side, int posX, int posY, Piece[][] b) {
+		creatingPiece("Bishop", side, posX, posY, b);
 	}
 	
 	
@@ -15,7 +15,7 @@ public class Bishop extends Piece {
 		}
 	}
 	
-	public boolean action(int desX, int desY) {
-		return false;
+	public void move(int desX, int desY) {
+		
 	}
 }
