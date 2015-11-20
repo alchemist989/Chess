@@ -13,7 +13,7 @@ public class Rook extends Piece {
 			return "img/black_rook.png";
 		}
 	}
-	public void move(int desX, int desY) {
+	public boolean move(int desX, int desY) {
 		boolean[][] allowMovement = new boolean[8][8];
 		for (int i = posX; i < 8; i++) {
 			if (myBoard[i][posY] != null && myBoard[i][posY].side != side) {
@@ -46,7 +46,9 @@ public class Rook extends Piece {
 		if (checkBounds(desX, desY)) {
 			if (allowMovement[desX][desY]) {
 				movingCapturing(desX, desY, myBoard[posX][posY]);
+				return true;
 			}
 		}
+		return false;
 	}
 }

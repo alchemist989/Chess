@@ -30,7 +30,7 @@ public abstract class Piece {
 	
 	public abstract String picture();
 	//true if the piece is clicked, false if the piece is move
-	public abstract void move(int desX, int desY);
+	public abstract boolean move(int desX, int desY);
 	
 	
 	

@@ -1,3 +1,13 @@
+/** Chess
+ * 
+ * @author josephjiang
+ *Game design is bare bones of the Chess. The board and pieces are initiated, the piece movements are coded 
+ *Unimplemented:
+ *---Check
+ *---AI
+ *---Pawn to Queen
+ *---Castle
+ */
 public class Board {
 	
 	static Piece[][] myBoard;
@@ -6,6 +16,8 @@ public class Board {
 	static Piece choosen;
 	static int turn;
 	static boolean hasMoved;
+	static boolean white_alive;
+	static boolean black_alive;
 	
 	public Board() {
 		myBoard = new Piece[8][8];
@@ -61,9 +73,25 @@ public class Board {
 			System.out.println(turn);
 		}
 	}
-	
 	private void checkMate() {
-		
+		gameEnd = true;
+	}
+	private void kingCheck() {
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				if (myBoard[x][y].name.equals("King")) {
+					if (myBoard[x][y].side == 0) {
+						white_alive = true;
+					}
+					if (myBoard[x][y].side == 1) {
+						black_alive = true;
+					}
+				}	
+			}
+		}
+		if (white_alive && !black_alive || !white_alive && black_alive) {
+			checkMate();
+		}
 	}
 	
 	public static void drawBoard() {
@@ -100,8 +128,9 @@ public class Board {
 						if (choosen == null) {
 							continue;
 						} else if (choosen != null && choosen.side == turn) {
-							choosen.move(x, y);
-							hasMoved = true;
+							if (choosen.move(x, y)) {
+								hasMoved = true;
+							}
 							colorSelectPiece = false;
 						}
 					//Pick player's piece when nothing has been selected
@@ -116,8 +145,9 @@ public class Board {
 						
 					//Move to Capture
 					} else if (myBoard[x][y].side != turn && choosen != null && choosen.side == turn) {
-						choosen.move(x, y);
-						hasMoved = true;
+						if (choosen.move(x, y)) {
+							hasMoved = true;
+						}
 						colorSelectPiece = false;
 					}
 					drawBoard();
