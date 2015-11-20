@@ -26,6 +26,13 @@ public abstract class Piece {
 		myBoard[posX][posY] = null;
 		selected.posX = desX;
 		selected.posY = desY;
+		//Pawn -> Queen White
+		if (myBoard[desX][desY].side == 0 && desY == 7) {
+			myBoard[desX][desY] = new Queen(0, desX, desY, myBoard);
+		}
+		if (myBoard[desX][desY].side == 1 && desY == 0) {
+			myBoard[desX][desY] = new Queen(1, desX, desY, myBoard);
+		}
 	}
 	
 	public abstract String picture();
