@@ -57,6 +57,8 @@ public class Board {
 		if (hasMoved) {
 			turn = 1-turn;
 			hasMoved = false;
+			colorSelectPiece = false;
+			System.out.println(turn);
 		}
 	}
 	
@@ -97,9 +99,10 @@ public class Board {
 					if (myBoard[x][y] == null) {
 						if (choosen == null) {
 							continue;
-						} else if (choosen != null) {
+						} else if (choosen != null && choosen.side == turn) {
 							choosen.move(x, y);
 							hasMoved = true;
+							colorSelectPiece = false;
 						}
 					//Pick player's piece when nothing has been selected
 					} else if (choosen == null && myBoard[x][y].side == turn) {
@@ -115,16 +118,17 @@ public class Board {
 					} else if (myBoard[x][y].side != turn && choosen != null && choosen.side == turn) {
 						choosen.move(x, y);
 						hasMoved = true;
+						colorSelectPiece = false;
 					}
-				
-				//Color the selected Piece
-//				if (colorSelectPiece) {
-//					StdDrawPlus.setPenColor(StdDrawPlus.MAGENTA);
-//					StdDrawPlus.filledSquare(x + .5, y + .5, .5);
-//					StdDrawPlus.show(10);
-//					drawBoard();
-//				} else {
 					drawBoard();
+					//Color the selected Piece
+					if (colorSelectPiece) {
+						StdDrawPlus.setPenColor(StdDrawPlus.MAGENTA);
+						StdDrawPlus.filledSquare(x + .5, y + .5, .5);
+						StdDrawPlus.show(10);
+					} else {
+						drawBoard();
+					}
 				}
 			}
 			StdDrawPlus.show(10);

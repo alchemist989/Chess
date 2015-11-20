@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 public class Rook extends Piece {
 	
@@ -12,25 +13,39 @@ public class Rook extends Piece {
 			return "img/black_rook.png";
 		}
 	}
-	
 	public void move(int desX, int desY) {
-		for (int i = 0; i < 8; i++) {
-			
-			if (checkBounds(desX, i)) {
-				if (posX == desX && i == desY) {
-					myBoard[desX][desY] = myBoard[posX][posY];
-					myBoard[posX][posY] = null;
-					posX = desX;
-					posY = desY;
-				}
+		boolean[][] allowMovement = new boolean[8][8];
+		for (int i = posX; i < 8; i++) {
+			if (myBoard[i][posY] != null && myBoard[i][posY].side != side) {
+				allowMovement[i][posY] = true;
+				break;
 			}
-			if (checkBounds(i, desY)) {
-				if (posY == desY && i == desX) {
-					myBoard[desX][desY] = myBoard[posX][posY];
-					myBoard[posX][posY] = null;
-					posX = desX;
-					posY = desY;
-				}
+			allowMovement[i][posY] = true;
+		}
+		for (int i = posX; i >= 0; i--) {
+			if (myBoard[i][posY] != null && myBoard[i][posY].side != side) {
+				allowMovement[i][posY] = true;
+				break;
+			}
+			allowMovement[i][posY] = true;
+		}
+		for (int i = posY; i < 8; i++) {
+			if (myBoard[posX][i] != null && myBoard[posX][i].side != side) {
+				allowMovement[posX][i] = true;
+				break;
+			}
+			allowMovement[posX][i] = true;
+		}
+		for (int i = posY; i >= 0; i--) {
+			if (myBoard[posX][i] != null && myBoard[posX][i].side != side) {
+				allowMovement[posX][i] = true;
+				break;
+			}
+			allowMovement[posX][i] = true;
+		}
+		if (checkBounds(desX, desY)) {
+			if (allowMovement[desX][desY]) {
+				movingCapturing(desX, desY, myBoard[posX][posY]);
 			}
 		}
 	}
