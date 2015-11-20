@@ -15,7 +15,43 @@ public class Bishop extends Piece {
 		}
 	}
 	
-	public void move(int desX, int desY) {
-		
+	public boolean move(int desX, int desY) {
+		boolean[][] allowMovement = new boolean[8][8];
+		for (int x = posX, y = posY; x < 8 && y < 8; x++, y++) {
+			if (myBoard[x][y] != null && myBoard[x][y].side != side) {
+				allowMovement[x][y] = true;
+				break;
+			}
+			allowMovement[x][y] = true;
+		}
+		for (int x = posX, y = posY; x >= 0 && y < 8; x--, y++) {
+			if (myBoard[x][y] != null && myBoard[x][y].side != side) {
+				allowMovement[x][y] = true;
+				break;
+			}
+			allowMovement[x][y] = true;
+		}
+		for (int x = posX, y = posY; x < 8 && y >= 0; x++, y--) {
+			if (myBoard[x][y] != null && myBoard[x][y].side != side) {
+				allowMovement[x][y] = true;
+				break;
+			}
+			allowMovement[x][y] = true;
+		}
+		for (int x = posX, y = posY; x >=0 && y >= 0; x--, y--) {
+			if (myBoard[x][y] != null && myBoard[x][y].side != side) {
+				allowMovement[x][y] = true;
+				break;
+			}
+			allowMovement[x][y] = true;
+		}
+		if (checkBounds(desX, desY)) {
+			if (allowMovement[desX][desY]) {
+				movingCapturing(desX, desY, myBoard[posX][posY]);
+				return true;
+			}
+		}
+		return false;
 	}
 }
+ 

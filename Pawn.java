@@ -16,7 +16,7 @@ public class Pawn extends Piece {
 			return "img/black_pawn.png";
 		}
 	}
-	public void capture(int desX, int desY) {
+	public boolean capture(int desX, int desY) {
 		//White Capture
 		if (side == 0) {
 			int upperRightX = posX + 1;
@@ -26,12 +26,14 @@ public class Pawn extends Piece {
 			if (checkBounds(upperRightX, upperRightY)) {
 				if (desX == upperRightX && desY == upperRightY) {
 					movingCapturing(desX, desY, myBoard[posX][posY]);
+					return true;
 				}
 			System.out.println(checkBounds(upperLeftX, upperLeftY));
 			} if (checkBounds(upperLeftX, upperLeftY)) {
 				if (desX == upperLeftX && desY == upperLeftY) {
 					System.out.print("capturing#2");
 					movingCapturing(desX, desY, myBoard[posX][posY]);
+					return true;
 				}
 			}
 		}
@@ -44,16 +46,19 @@ public class Pawn extends Piece {
 			if (checkBounds(lowerRightX, lowerRightY)) {
 				if (desX == lowerRightX && desY == lowerRightY) {
 					movingCapturing(desX, desY, myBoard[posX][posY]);
+					return true;
 				}
 			} if (checkBounds(lowerLeftX, lowerLeftY)) {
 				if (desX == lowerLeftX && desY == lowerLeftY) {
 					movingCapturing(desX, desY, myBoard[posX][posY]);
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 	
-	public void move(int desX, int desY) {
+	public boolean move(int desX, int desY) {
 		if (myBoard[desX][desY] == null) {
 			if (side == 0) {
 				int frontX = posX;
@@ -65,6 +70,7 @@ public class Pawn extends Piece {
 						if (myBoard[desX][frontY] == null) {
 							pawnMoved = true;
 							movingCapturing(desX, desY, myBoard[posX][posY]);
+							return true;
 						}
 					}
 				} if (checkBounds(doubleFrontX, doubleFrontY)) {
@@ -72,6 +78,7 @@ public class Pawn extends Piece {
 						if (myBoard[desX][frontY] == null && myBoard[desX][doubleFrontY] == null) {
 							pawnMoved = true;
 							movingCapturing(desX, desY, myBoard[posX][posY]);
+							return true;
 						}
 					}
 				}
@@ -85,6 +92,7 @@ public class Pawn extends Piece {
 						if (myBoard[desX][frontY] == null) {
 							pawnMoved = true;
 							movingCapturing(desX, desY, myBoard[posX][posY]);
+							return true;
 						}
 					}
 				} if (checkBounds(doubleFrontX, doubleFrontY)) {
@@ -92,14 +100,15 @@ public class Pawn extends Piece {
 						if (myBoard[desX][frontY] == null && myBoard[desX][doubleFrontY] == null) {
 							pawnMoved = true;
 							movingCapturing(desX, desY, myBoard[posX][posY]);
+							return true;
 						}
 					}
 				}
 			}
 		//Capture
 		} else if (myBoard[desX][desY].side != side) {
-			capture(desX, desY);
+			return capture(desX, desY);
 		}
-
+		return false;
 	}
 }

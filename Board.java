@@ -1,3 +1,13 @@
+/** Chess
+ * 
+ * @author josephjiang
+ *Game design is bare bones of the Chess. The board and pieces are initiated, the piece movements are coded 
+ *Unimplemented:
+ *---Check
+ *---AI
+ *---Pawn to Queen
+ *---Castle
+ */
 public class Board {
 	
 	static Piece[][] myBoard;
@@ -6,6 +16,8 @@ public class Board {
 	static Piece choosen;
 	static int turn;
 	static boolean hasMoved;
+	static boolean white_alive;
+	static boolean black_alive;
 	
 	public Board() {
 		myBoard = new Piece[8][8];
@@ -57,11 +69,29 @@ public class Board {
 		if (hasMoved) {
 			turn = 1-turn;
 			hasMoved = false;
+			colorSelectPiece = false;
+			System.out.println(turn);
 		}
 	}
-	
 	private void checkMate() {
-		
+		gameEnd = true;
+	}
+	private void kingCheck() {
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				if (myBoard[x][y].name.equals("King")) {
+					if (myBoard[x][y].side == 0) {
+						white_alive = true;
+					}
+					if (myBoard[x][y].side == 1) {
+						black_alive = true;
+					}
+				}	
+			}
+		}
+		if (white_alive && !black_alive || !white_alive && black_alive) {
+			checkMate();
+		}
 	}
 	
 	public static void drawBoard() {
@@ -97,9 +127,11 @@ public class Board {
 					if (myBoard[x][y] == null) {
 						if (choosen == null) {
 							continue;
-						} else if (choosen != null) {
-							choosen.move(x, y);
-							hasMoved = true;
+						} else if (choosen != null && choosen.side == turn) {
+							if (choosen.move(x, y)) {
+								hasMoved = true;
+							}
+							colorSelectPiece = false;
 						}
 					//Pick player's piece when nothing has been selected
 					} else if (choosen == null && myBoard[x][y].side == turn) {
@@ -113,18 +145,20 @@ public class Board {
 						
 					//Move to Capture
 					} else if (myBoard[x][y].side != turn && choosen != null && choosen.side == turn) {
-						choosen.move(x, y);
-						hasMoved = true;
+						if (choosen.move(x, y)) {
+							hasMoved = true;
+						}
+						colorSelectPiece = false;
 					}
-				
-				//Color the selected Piece
-//				if (colorSelectPiece) {
-//					StdDrawPlus.setPenColor(StdDrawPlus.MAGENTA);
-//					StdDrawPlus.filledSquare(x + .5, y + .5, .5);
-//					StdDrawPlus.show(10);
-//					drawBoard();
-//				} else {
 					drawBoard();
+					//Color the selected Piece
+					if (colorSelectPiece) {
+						StdDrawPlus.setPenColor(StdDrawPlus.MAGENTA);
+						StdDrawPlus.filledSquare(x + .5, y + .5, .5);
+						StdDrawPlus.show(10);
+					} else {
+						drawBoard();
+					}
 				}
 			}
 			StdDrawPlus.show(10);

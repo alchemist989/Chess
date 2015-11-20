@@ -28,10 +28,20 @@ public abstract class Piece {
 		selected.posY = desY;
 	}
 	
-	
-	
 	public abstract String picture();
 	//true if the piece is clicked, false if the piece is move
-	public abstract void move(int desX, int desY);
+	public abstract boolean move(int desX, int desY);
+	
+	
+	
+	public class Pair {
+		int x;
+		int y;
+		
+		public Pair(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+	}
 }
 
